@@ -1,0 +1,21 @@
+.headerbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 16px;
+    
+    svg{
+        float:left;
+        margin:0;
+    }
+    p {
+        color: black;
+        font-size: 24px;
+        // font-family: Pretendard;
+        font-weight: 500;
+        word-wrap: break-word;
+        text-align: center;
+        display: inline-block;
+        margin:0 auto;
+    }
+}
