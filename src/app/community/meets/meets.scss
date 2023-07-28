@@ -1,0 +1,109 @@
+
+
+.meets{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    
+    .header{
+        display: flex;
+        width: 90%;
+        justify-content: space-between;
+        padding:16px 0;
+        h2{
+            font-size: 24px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        button{
+            padding:8px 12px;
+            border-radius: 8px;
+            background-color: #45BF86;
+            color:#fff;
+            font-size: small;
+            float:right;
+        }
+    }
+
+    .type-navbar{
+        display: flex;
+        justify-content: flex-start;
+        width:90%;
+
+        button{
+            padding:10px 16px;
+        }
+        .selected{
+            border-bottom: 2px solid #A1A1A1;
+        }
+    }
+
+    .item{
+        display: flex;
+        justify-content: space-between;
+        width: 90%;
+        height:110px;
+        padding:12px;
+        border-radius:8px;
+        box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);
+
+        .left{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            .circle{
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                background-color: #F2F2F2;
+                margin:0;
+                display: inline-block;
+            }
+            p{
+                width: 56px;
+                text-align: center;
+                border: 1px solid #45BF86;
+                height:24px;
+                border-radius: 12px;
+                font-size: small;
+                color: #45BF86;
+                padding:2px 0;
+            }
+        }
+
+        .right{
+            margin-left:24px;
+            width: 80%;
+            .title{
+                display: flex;
+                justify-content: space-between;
+                width:100%;
+            }
+            p{
+                font-size: small;
+                width:80%;
+
+            }
+            .info{
+                color: #A1A1A1;
+                display: flex;
+                justify-content: flex-start;
+                svg{
+                    display: inline-block;
+                }
+                p{
+                    width:100%;
+                    font-size:10px;
+                }
+                
+            }
+        }
+    }
+
+
+
+
+}
