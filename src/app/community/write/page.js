@@ -34,7 +34,7 @@ function Write(){
                     let tmp = Number(e.target.value);
                     setNum({content: tmp, valid: tmp>=3 && tmp<=300 ? true : false});
             }}/>
-            <h2>내용</h2>
+            <h2>소개글</h2>
             <textarea className={content.content === '' ? '' : (content.valid ? 'valid': 'invalid')} 
                 placeholder="2 ~ 100 자 이내로 작성해주세요." defaultValue={content.content} onChange={(e)=>{
                 setContent({content: e.target.value, valid: e.target.value.length >= 2 && e.target.value.length <= 100 ? true : false});   
