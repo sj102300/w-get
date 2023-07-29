@@ -14,7 +14,7 @@ function Write(){
 
     return(
         <div className="write">
-            <Headerbar title={"방 만들기"}/>
+            <Headerbar title={"방 만들기"} color={'#fff'}/>
             <h1>원하는 정보를 입력해주세요.</h1>
             <h2>방 이름</h2>
             <input className={title.content==='' ? '' : (title.valid ? 'valid': 'invalid')} 

@@ -7,7 +7,7 @@ function Detail(){
 
     return(
         <div className="detail">
-            <Headerbar title={'한강에서 플로깅해요'} />
+            <Headerbar title={'한강에서 플로깅해요'} color={'#fff'} />
             <div className="top-container">
                 <div className='emoji'></div>
                 <div className='w-full info text-[#464646]'>
