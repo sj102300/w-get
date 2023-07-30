@@ -4,8 +4,6 @@ import { useState } from "react";
 import "./plogging.scss";
 
 
-
-
 function Plogging() {
 
     let [trash, setTrash] = useState(false);
@@ -48,10 +46,8 @@ function Proceed() {
     return (
         <div className="proceed-modal">
             <h1>00:00:27</h1>
-            <button onClick={()=>{
-                //다음 페이지로 이동 
-            }} className="white-btn w-[150px] mt-[15px]">
-                플로깅 종료하기
+            <button className="white-btn w-[150px] mt-[15px]">
+                <Link href="/main/enter-result">플로깅 종료하기</Link>
             </button>
         </div>
     )

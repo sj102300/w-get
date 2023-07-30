@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import './meets.scss';
 
+import Link from 'next/link';
+
 
 function Meets() {
 
@@ -22,7 +24,7 @@ function Meets() {
         <div className='meets'>
             <div className='header'>
                 <h2>플로깅 MEETS</h2>
-                <button>+ 방만들기</button>
+                <button><Link href="/community/write" >+ 방만들기</Link></button>
             </div>
             <div className='type-navbar'>
                 <button id="type1" onClick={() => { setSelected(1); }} className='selected'>탐색</button>
@@ -42,9 +44,11 @@ function Meets() {
 }
 
 
-function OneItem() {
+function OneItem({router}) {
+    
 
     return (
+        <Link href="/community/detail">
         <div className='item'>
             <div className='left'>
                 <div className="circle"></div>
@@ -72,7 +76,7 @@ function OneItem() {
                     </span>
                 </div>
             </div>
-        </div>
+        </div></Link>
     )
 }
 
