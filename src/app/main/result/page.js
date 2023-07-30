@@ -1,6 +1,7 @@
 import "./result.scss";
 import Image from "next/image";
 import earthImg from '/public/images/EarthImg.png'
+import Link from "next/link";
 
 function Result() {
 
@@ -27,7 +28,9 @@ function Result() {
                 </div>
             </div>
             <button className="w-4/5 green-btn mt-[40px]">
-                확인
+                <Link href="/main/plogging">
+                    확인
+                </Link>
             </button>
         </div>
     )
