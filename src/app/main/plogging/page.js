@@ -1,18 +1,26 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./plogging.scss";
-
+import Link from "next/link";
 
 function Plogging() {
 
     let [trash, setTrash] = useState(false);
     let [nephron, setNephron] = useState(false);
     let [status, setStatus] = useState(false);
+    let [time, setTime] = useState(0);
+
+
+  useEffect(() => {
+    let intervalId;
+    intervalId = setInterval(() => setTime(time + 1), 10);
+    return () => clearInterval(intervalId);
+  }, [status, time]);
 
     return (
         <div className="plogging">
-            <button onClick={(e) => {
+            <button onClick={() => {
                 setTrash(!trash);
             }} className={trash ? "orange trash" : "green trash"}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -28,7 +36,7 @@ function Plogging() {
             </button>
             {
                 !status ?
-                    <Start setStatus={setStatus} /> : <Proceed />
+                    <Start setStatus={setStatus} /> : <Proceed time={time}/>
             }
         </div>
     )
@@ -42,10 +50,10 @@ function Start({ setStatus }) {
     )
 }
 
-function Proceed() {
+function Proceed({ time }) {
     return (
         <div className="proceed-modal">
-            <h1>00:00:27</h1>
+            <h1>{`${Math.floor(time / 360000)}:${Math.floor((time % 360000) / 6000)}:${Math.floor((time % 6000) / 100)}`}</h1>
             <button className="white-btn w-[150px] mt-[15px]">
                 <Link href="/main/enter-result">플로깅 종료하기</Link>
             </button>
