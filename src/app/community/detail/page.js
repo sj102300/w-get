@@ -29,7 +29,7 @@ function Detail(){
 
             <div className='bottom-container'>
                 <h4>플로깅 리더</h4>
-                <div className='profile'><img src='https://images.pexels.com/photos/15679391/pexels-photo-15679391.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load' alt="프로필 사진"/> <p>이깨끗 님</p></div>
+                <p>이깨끗 님</p>
                 <h4>위치</h4>
                 <p>서울특별시 영등포구 여의도 한강공원 이벤트광장</p>
                 <h4>인원</h4>
@@ -38,7 +38,7 @@ function Detail(){
                 <p>한강에서 플로깅 하고, 뒷풀이로 치맥해요! 장갑이나 쓰레기봉투 지참해주세요!</p>
             </div>
 
-            <button className="lg-green-btn w-full ">참여하기</button>
+            <button className="lg-green-btn w-full mb-[10px]">참여하기</button>
         </div>
     )
 }
