@@ -1,10 +1,7 @@
 
 .write{
-    position: fixed;
-    top:52px;
-    left:0;
-    width: 90%;
-    height: calc(100dvh - 112px);
+    padding-top:52px;
+    padding-bottom:60px;
     margin:0 5%;
 
     display: flex;
@@ -36,7 +33,7 @@
         border:1px solid #A1A1A1;
         margin:12px 0;
         width: 100%;
-        height: calc(100% - 394px);
+        height:180px;
         overflow-y:auto;
         resize: none;
     }

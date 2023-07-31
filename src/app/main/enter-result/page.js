@@ -72,7 +72,7 @@ function EnterResult() {
                     <div className='thick-line'></div>
 
                     <div className='upload-img'>
-                        <h2>인증사진</h2>
+                        <h1>인증사진</h1>
                         {
                             imgsrc === '' ?
                                 <label for="upload">
