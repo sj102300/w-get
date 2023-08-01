@@ -1,15 +1,12 @@
 
-import Headerbar from "./headerbar";
 
-
+import Plogging from "./main/page";
 import "./stylesheets/globals.css";
 
 export default function Home() {
   return (
     <div>
-      <Headerbar />
-      
-
+      <Plogging />
       
     </div>
   )
