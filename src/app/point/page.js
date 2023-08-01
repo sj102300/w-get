@@ -51,7 +51,7 @@ function Store() {
 
                     </div>
                 </Link>
-                <Link href="/point/records">
+                <Link href="/point/mycoupons">
                     <div className='my-coupon'>
                         <p>내 쿠폰 보기</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
