@@ -7,7 +7,7 @@ function Navbar() {
     return (
         <div className="navbar">
             <button>
-            <Link href="/main/plogging">
+            <Link href="/main">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                     <path d="M8.625 19.8333V6.78571M14.8125 17.6429V4.52679M3 18.2143V4.5L8.47826 6.78571L14.7391 4.5L21 6.78571V20.5L14.7391 18.2143L8.47826 20.5L3 18.2143Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
