@@ -1,0 +1,83 @@
+.my-page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .profile-top {
+        width:90%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding:24px 0;
+        margin: 0 5%;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-right:5px;
+            p {
+                font-size: medium;
+                font-weight: 500;
+            }
+
+            h4 {
+                font-size: large;
+                font-weight: 600;
+                color: #45BF86;
+            }
+        }
+    
+    }
+
+    .profile-bottom{
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 5%;
+        padding: 5px 0;
+        p{
+            width:90%;
+            word-wrap: break-word;
+        }
+        textarea{
+            width: 90%;
+            height:80px;
+        }
+    } 
+    
+    
+    .thick-line{
+        width: 100%;
+        background-color: #F2F2F2;
+        height: 16px;
+        margin-top:10px;
+    }
+
+    h1{
+            font-size: large;
+            padding:12px 5%;
+    }
+
+    .my-logs{
+        width: 90%;
+        margin:0 5%;
+        display: flex;
+        flex-direction: row;
+        
+        div{
+            width:25%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding:4px 0;
+
+            h2{
+                padding:10px 16px;
+                font-size:x-large
+            }
+        }
+    }
+
+}
