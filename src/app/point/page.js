@@ -3,6 +3,7 @@ import Headerbar from '../headerbar';
 import './store.scss';
 import Link from 'next/link';
 import Image from 'next/image';
+import CouponItem from '../couponItem';
 
 
 function Store() {
@@ -71,8 +72,7 @@ function Store() {
                     <div className='content'>
                         {
                             couponData.map((i)=>{
-                                return(<OneItem data={i}/>)
-                                
+                                return(<CouponItem data={i}/>)
                             })
                         }
                     </div>
@@ -82,22 +82,5 @@ function Store() {
     )
 }
 
-
-function OneItem({ data }) {
-
-    return (
-        <div className='item'>
-            <img src={data.imgsrc} alt="가게 사진" />
-            <div>
-                <p>{data.name}</p>
-                <p>{data.loc}</p>
-                <p>{data.content}</p>
-                <h2>{data.point+' POINT'}</h2>
-            </div>
-            <p className='receive'>쿠폰받기</p>
-        </div>
-
-    )
-}
 
 export default Store;

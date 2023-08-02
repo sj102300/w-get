@@ -13,7 +13,6 @@ function Plogging() {
     let [status, setStatus] = useState(false);
     let [time, setTime] = useState(0);
 
-
   useEffect(() => {
     let intervalId;
     intervalId = setInterval(() => setTime(time + 1), 10);
@@ -22,7 +21,7 @@ function Plogging() {
 
     return (
         <div className="plogging">
-            <KakaoMap className="map" nephron={nephron} setNephron={setNephron} trash={trash} setTrash={setTrash}/>
+            <KakaoMap className="map" nephron={nephron} trash={trash} />
             <button onClick={() => {
                 setTrash(!trash);
             }} className={trash ? "green trash" : "trash invalid"}>
