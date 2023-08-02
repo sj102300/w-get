@@ -2,6 +2,8 @@ import './stylesheets/globals.css'
 import Navbar from "./navbar";
 import "../../public/static/font/style.css"
 
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 
 export const metadata = {
@@ -18,6 +20,7 @@ export default function RootLayout({ children }) {
       <body>
         {children}
         <Navbar />
+      <ToastContainer />
       </body>
     </html>
   )

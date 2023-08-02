@@ -29,8 +29,10 @@ function Login(){
             <div className="finding">
                 <p>아이디 찾기</p><p>ㅣ</p><p>비밀번호 찾기</p>
             </div>
-            <button className={email.valid && pw !== '' ? 'green-btn w-full': 'darkgray-btn w-full'} >로그인하기</button>
-            <button className='white-btn w-full mt-[12px]'>회원가입하기</button>
+            <button onClick={()=>{
+                
+            }} className={email.valid && pw !== '' ? 'green-btn w-full': 'darkgray-btn w-full'} >로그인하기</button>
+            <button className='white-btn w-full mt-[12px]'><Link href="/signup" >회원가입하기</Link></button>
         </div>
     )
 }

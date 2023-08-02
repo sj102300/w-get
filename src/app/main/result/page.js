@@ -15,7 +15,6 @@ function Result() {
                     <p className="font">POINT</p>
                     <p className="number">+30</p>
                 </div>
-
                 <div className="point-item">
                     <p className="title">일반 쓰레기 2개</p>
                     <p className="font">POINT</p>
@@ -28,7 +27,7 @@ function Result() {
                 </div>
             </div>
             <button className="w-4/5 green-btn mt-[40px]">
-                <Link href="/main/plogging">
+                <Link href="/main">
                     확인
                 </Link>
             </button>

@@ -4,6 +4,7 @@ import Headerbar from '@/app/headerbar';
 import './enter-result.scss';
 import Image from 'next/image';
 import { useState } from 'react';
+import Link from 'next/link';
 
 
 function EnterResult() {
@@ -92,7 +93,7 @@ function EnterResult() {
                     </div>
                     <div className='btn-container'>
                     <button className='white-btn w-full'>skip</button>
-                    <button className='green-btn w-full'>등록하기</button>
+                    <button className='green-btn w-full'><Link href="/calendar" >등록하기</Link></button>
                     </div>
                 </div>
             </div>
