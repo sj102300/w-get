@@ -4,11 +4,9 @@ import "./write.scss";
 
 import Headerbar from "../../headerbar";
 import { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import 'node_modules/react-datepicker/dist/react-datepicker.css';
 
-
-// import { MobileDateTimePickecr } from '@mui/x-date-pickers/MobileDateTimePicker';
-// import dayjs from "dayjs";
-// import { MobileDateTimePicker } from '/packages/x-date-pickers/src';
 
 function Write() {
 
@@ -16,7 +14,9 @@ function Write() {
     let [location, setLocation] = useState({ content: '', valid: false });
     let [num, setNum] = useState({ content: '', valid: false });
     let [content, setContent] = useState({ content: '', valid: false });
-    let [time, setTime] = useState({content: '', valid:false});
+
+    const [startDate, setStartDate] = useState(new Date());
+
     return (
         <div>
             <Headerbar title={"방 만들기"} color={'#fff'} />
@@ -35,11 +35,13 @@ function Write() {
                         setLocation({ content: e.target.value, valid: e.target.value.length >= 2 && e.target.value.length <= 20 ? true : false });
                     }} />
                 <h2>시간</h2>
-                <input className={time.content === '' ? '' : (time.valid ? 'valid' : 'invalid')}
-                    placeholder="날짜와 시간을 입력해주세요." defaultValue={time.content}
-                    onChange={(e)=>{
-                        setTime({content:e.target.value, valid:e.target.value.length >=5 ? true : false});
-                    }} />
+                <div className="date-picker"><DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    timeInputLabel="Time:"
+                    dateFormat="yyyy/MM/dd h:mm aa"
+                    showTimeInput
+                /></div>
                 <h2>인원</h2>
                 <input className={num.content === '' ? '' : (num.valid ? 'valid' : 'invalid')}
                     type="number" placeholder="3 ~ 300 사이의 숫자만 입력해주세요" defaultValue={num.content} onChange={(e) => {
