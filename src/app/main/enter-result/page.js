@@ -92,8 +92,8 @@ function EnterResult() {
                         }
                     </div>
                     <div className='btn-container'>
-                    <button className='white-btn w-full'>skip</button>
-                    <button className='green-btn w-full'><Link href="/calendar" >등록하기</Link></button>
+                    <button className='white-btn w-full'><Link href="/main">skip</Link></button>
+                    <button className='green-btn w-full'><Link href="/main/result" >등록하기</Link></button>
                     </div>
                 </div>
             </div>

@@ -27,7 +27,7 @@ function Result() {
                 </div>
             </div>
             <button className="w-4/5 green-btn mt-[40px]">
-                <Link href="/main">
+                <Link href="/calendar">
                     확인
                 </Link>
             </button>
