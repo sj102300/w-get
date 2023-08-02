@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import "./plogging.scss";
 import Link from "next/link";
 import KakaoMap from "../kakaomap";
