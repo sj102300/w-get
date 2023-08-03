@@ -23,7 +23,7 @@ function Meets() {
     return (
         <div className='meets'>
             <div className='header'>
-                <h2>플로깅 MEETS</h2>
+                <h2>같이하기</h2>
                 <button><Link href="/community/write" >+ 방만들기</Link></button>
             </div>
             <div className='type-navbar'>

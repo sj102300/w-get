@@ -48,7 +48,9 @@
 
     .date-picker{
         width:100%;
-        
+        display: flex;
+        justify-content: stretch;
+        flex-grow: 1;
     }
     
 }
