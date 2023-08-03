@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import './meets.scss';
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 function Meets() {
@@ -23,7 +24,10 @@ function Meets() {
     return (
         <div className='meets'>
             <div className='header'>
+                <div>
+                <Image src="/images/logo.png" alt="logo" width={'30'} height={'30'} />
                 <h2>같이하기</h2>
+                </div>
                 <button><Link href="/community/write" >+ 방만들기</Link></button>
             </div>
             <div className='type-navbar'>

@@ -6,6 +6,7 @@ import './login.scss';
 import Head from 'next/head';
 import Link from 'next/link';
 import { handleIOSKeyboard } from '../util/handleIOSKeyboard';
+import Image from 'next/image';
 
 
 function Login() {
@@ -32,7 +33,7 @@ function Login() {
             </Head>
             <div className='login'>
                 <Headerbar title={''} color={'black'} />
-                <h1>쓰담서울과 함께<br />플로깅을 기록 해 보세요.</h1>
+                <div className="title" ><Image src="/images/logo.png" alt="logo" width={'60'} height={'60'} /><h1>쓰담서울과 함께<br />플로깅을 기록 해 보세요.</h1></div>
                 <input required type='email' placeholder='이메일을 입력하세요.'
                     onChange={(e) => {
                         email_check(e.target.value) ? setEmail({ email: e.target.value, valid: true }) : null;
