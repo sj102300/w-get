@@ -6,6 +6,7 @@ import Headerbar from "../../headerbar";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import 'node_modules/react-datepicker/dist/react-datepicker.css';
+import Link from "next/link";
 
 
 function Write() {
@@ -35,7 +36,8 @@ function Write() {
                         setLocation({ content: e.target.value, valid: e.target.value.length >= 2 && e.target.value.length <= 20 ? true : false });
                     }} />
                 <h2>시간</h2>
-                <div className="date-picker"><DatePicker
+                <div className="date-picker">
+                <DatePicker
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     timeInputLabel="Time:"
@@ -53,7 +55,7 @@ function Write() {
                     placeholder="2 ~ 100 자 이내로 작성해주세요." defaultValue={content.content} onChange={(e) => {
                         setContent({ content: e.target.value, valid: e.target.value.length >= 2 && e.target.value.length <= 100 ? true : false });
                     }} />
-                <button className={title.valid && location.valid && num.valid && content.valid ? 'w-full green-btn' : 'w-full gray-btn'} >만들기</button>
+                <button className={title.valid && location.valid && num.valid && content.valid ? 'w-full green-btn' : 'w-full gray-btn'} ><Link href="/community">만들기</Link></button>
             </div>
         </div>
     )
