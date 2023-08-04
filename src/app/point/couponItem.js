@@ -1,5 +1,5 @@
 'use client';
-import {toast} from "react-toastify";
+import {toast, Slide} from "react-toastify";
 
 
 function CouponItem({ data }) {
@@ -14,7 +14,7 @@ function CouponItem({ data }) {
                 <h2>{data.point+' POINT'}</h2>
             </div>
             <p onClick={()=>{
-                toast('쿠폰받기 완료!', { hideProgressBar: true, autoClose: 2000, type: 'success' })
+                toast('쿠폰받기 완료!', { hideProgressBar: true, autoClose: 2000, type: 'success', style: {margin:'10px', borderRadius: '5px'}, transition : Slide })
             }} className='receive'>쿠폰받기</p>
         </div>
 

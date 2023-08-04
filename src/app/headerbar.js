@@ -15,7 +15,7 @@ function Headerbar({ title, color }) {
             <p>
                 {title}
             </p>
-            <svg onClick={()=>{ color !== black ? null: router.back(); }}xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg onClick={()=>{ color === 'black' && router.push('/main'); }}xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <rect width="24" height="24" fill="white" />
                 <path d="M18 6L6 18M18 18L6 6" stroke={color} stroke-width="2" stroke-linecap="round" />
             </svg>

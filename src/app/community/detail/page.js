@@ -1,6 +1,6 @@
 import Headerbar from '@/app/headerbar';
 import './detail.scss';
-import Image from 'next/image';
+import JoinBtn from './joinbtn';
 
 
 function Detail(){
@@ -38,7 +38,8 @@ function Detail(){
                 <p>한강에서 플로깅 하고, 뒷풀이로 치맥해요! 장갑이나 쓰레기봉투 지참해주세요!</p>
             </div>
 
-            <button className="lg-green-btn w-full mb-[10px]">참여하기</button>
+            <JoinBtn />
+
         </div>
     )
 }
