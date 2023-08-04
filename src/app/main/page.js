@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import "./plogging.scss";
 import Link from "next/link";
-import KakaoMap from "../kakaomap";
+import KakaoMap from "./kakaomap";
 
 
 function Plogging() {
@@ -15,9 +15,14 @@ function Plogging() {
 
   useEffect(() => {
     let intervalId;
-    intervalId = setInterval(() => setTime(time + 1), 10);
-    return () => clearInterval(intervalId);
-  }, [status, time]);
+    if (status){
+        intervalId = setInterval(() => setTime(time++), 1000);
+    }
+    else{
+        clearInterval(intervalId);
+    }
+  }, [status]);
+
 
     return (
         <div className="plogging">
@@ -38,7 +43,7 @@ function Plogging() {
             </button>
             {
                 !status ?
-                    <Start setStatus={setStatus} /> : <Proceed time={time}/>
+                    <Start setStatus={setStatus} /> : <Proceed time={time} setStatus={setStatus}/>
             }
         </div>
     )
@@ -52,11 +57,13 @@ function Start({ setStatus }) {
     )
 }
 
-function Proceed({ time }) {
+function Proceed({ time, setStatus }) {
     return (
         <div className="proceed-modal">
-            <h1>{`${Math.floor(time / 360000)}:${Math.floor((time % 360000) / 6000)}:${Math.floor((time % 6000) / 100)}`}</h1>
-            <button className="white-btn w-[150px] mt-[15px]">
+            <h1>{`${Math.floor(time / 3600)}:${Math.floor((time / 60 % 60))}:${Math.floor((time % 60))}`}</h1>
+            <button onClick={()=>{
+                setStatus(false);
+            }} className="white-btn w-[150px] mt-[15px]">
                 <Link href="/main/enter-result">플로깅 종료하기</Link>
             </button>
         </div>

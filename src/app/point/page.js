@@ -3,7 +3,7 @@ import Headerbar from '../headerbar';
 import './store.scss';
 import Link from 'next/link';
 import Image from 'next/image';
-import CouponItem from '../couponItem';
+import CouponItem from './couponItem';
 
 
 function Store() {

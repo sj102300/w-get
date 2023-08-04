@@ -28,7 +28,7 @@ function Meets() {
                 <Image src="/images/logo.png" alt="logo" width={'30'} height={'30'} />
                 <h2>같이하기</h2>
                 </div>
-                <button><Link href="/community/write" >+ 방만들기</Link></button>
+                <button><Link href="/community/write" >+ 그룹 만들기</Link></button>
             </div>
             <div className='type-navbar'>
                 <button id="type1" onClick={() => { setSelected(1); }} className='selected'>탐색</button>
@@ -48,7 +48,7 @@ function Meets() {
 }
 
 
-function OneItem({router}) {
+function OneItem() {
     
 
     return (
