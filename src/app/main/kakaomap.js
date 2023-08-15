@@ -13,7 +13,7 @@ const KakaoMap = ({ nephron, trash }) => {
   let [nephrons, setNephrons] = useState([]);
 
   const [status, setStatus] = useState({
-    center: { lat: 37.504, lng: 126.9207 },
+    center: { lat: 37.50, lng: 126.9207 },
     errMsg: null,
     isLoading: true,
   })
