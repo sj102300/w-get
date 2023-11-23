@@ -23,6 +23,14 @@ function Plogging() {
     }
   }, [status]);
 
+  useEffect(()=>{
+
+    fetch('/api/test').then((result)=>{
+        console.log(result);
+    })
+
+  },[])
+
 
     return (
         <div className="plogging">

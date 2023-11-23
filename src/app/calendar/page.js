@@ -5,6 +5,7 @@ import './calendar.scss';
 
 import React, { useState } from 'react'
 import Calendar from 'react-calendar';
+import Image from 'next/image';
 
 
 function MyCalendar() {
@@ -13,19 +14,20 @@ function MyCalendar() {
   return (
     <div className='my-calendar'>
       <Calendar calendarType='gregory' locale='en' onChange={onChange} value={value} />
-      <OneLog />
+      <OneLog imgSrc={"/images/result-default.png"} date={'2023년 8월 1일'} time={'1h 15m 23s'}/>
+      <OneLog imgSrc={"/images/record-example.jpg"} date={'2023년 8월 1일'} time={'3h 7m 18s'}/>
     </div>
   )
 }
 
-function OneLog(){
+function OneLog({imgSrc, date, time}){
 
   return(
     <div className="log">
-      <img alt="플로깅 인증 사진" src="https://www.shutterstock.com/image-photo/plogging-concept-detail-girl-hand-picking-1115182178"/>
+      <Image alt="플로깅 인증 사진" src={imgSrc} width={'80'} height={'80'}/>
       <div className='log-text'>
-        <h2>2023년 8월 2일</h2>
-        <h3>00h 00m 00s</h3>
+        <h2>{date}</h2>
+        <h3>{time}</h3>
       </div>
     </div>
   )

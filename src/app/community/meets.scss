@@ -86,6 +86,9 @@
                     background-color: #F2F2F2;
                     margin:0;
                     display: inline-block;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                 }
                 p{
                     width: 56px;
