@@ -64,6 +64,7 @@
             width: 100%;
             display: flex;
             padding:19px 24px;
+            justify-content: space-between;
 
             border-bottom: 1px solid #F2F2F2;
             background-color: #fff;
@@ -71,21 +72,25 @@
             p{
                 font-size:larger;
                 float:left;
+                width:15%;
             }
             div{
-                width: 75%;
-                padding-left:31px;
+                width: 60%;
                 float:left;
                 h3{
                     font-size:large;
                     color:black;
                 }
                 p{
-                    font-size:medium;
+                    font-size:small;
+                    width:100%;
                 }
             }
-            h3{
+            .green{
                 color:#45BF86;
+            }
+            .orange{
+                color:#F16937;
             }
         }
     }

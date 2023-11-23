@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model coupons {
+  id             String        @id @default(uuid())
+  storename      String?       @db.VarChar(255)
+  address        String?       @db.VarChar(255)
+  content        String?       @db.VarChar(255)
+  required_point Int?
+  user_coupon    user_coupon[]
+}
+
+model meets {
+  id          String       @id @default(uuid())
+  leaderid    String?      @db.VarChar(255)
+  status      String?      @db.VarChar(255)
+  title       String?      @db.VarChar(255)
+  content     String?      @db.VarChar(255)
+  location    String?      @db.VarChar(255)
+  daytime     DateTime?    @db.DateTime(0)
+  current_num Int?
+  max_num     Int?
+  users       users?       @relation(fields: [leaderid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "meets_ibfk_1")
+  user_meets  user_meets[]
+
+  @@index([leaderid], map: "leaderid")
+}
+
+model plogging_log {
+  id               String    @id @default(uuid())
+  userid           String?   @db.VarChar(255)
+  day              DateTime? @db.Date
+  accumulated_time Int?
+  regular          Int?
+  plastic_bag      Int?
+  can              Int?
+  plastic          Int?
+  point            Int?
+  users            users?    @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "plogging_log_ibfk_1")
+
+  @@index([userid], map: "userid")
+}
+
+model user_coupon {
+  userid   String  @db.VarChar(255)
+  couponid String  @db.VarChar(255)
+  users    users   @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_coupon_ibfk_1")
+  coupons  coupons @relation(fields: [couponid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_coupon_ibfk_2")
+
+  @@id([userid, couponid])
+  @@index([couponid], map: "couponid")
+}
+
+model user_meets {
+  meetsid String @db.VarChar(255)
+  userid  String @db.VarChar(255)
+  users   users  @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_meets_ibfk_1")
+  meets   meets  @relation(fields: [meetsid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_meets_ibfk_2")
+
+  @@id([meetsid, userid])
+  @@index([userid], map: "userid")
+}
+
+model user_plogging_info {
+  userid           String @id @db.VarChar(255)
+  accumulated_time Int?
+  point            Int?
+  count            Int?
+  regular          Int?
+  plastic_bag      Int?
+  can              Int?
+  plastic          Int?
+  users            users  @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_plogging_info_ibfk_1")
+}
+
+model user_point_log {
+  id         String    @id @default(uuid())
+  userid     String?   @db.VarChar(255)
+  day        DateTime? @db.Date
+  title      Int?
+  content    Int?
+  point_info Int?
+  users      users?    @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_point_log_ibfk_1")
+
+  @@index([userid], map: "userid")
+}
+
+model users {
+  id                 String              @id @default(uuid())
+  name               String?             @db.VarChar(255) @unique
+  email              String?             @db.VarChar(255) @unique
+  pw                 String?             @db.VarChar(255)
+  address            String?             @db.VarChar(255)
+  introduction       String?             @db.MediumText
+  meets              meets[]
+  plogging_log       plogging_log[]
+  user_coupon        user_coupon[]
+  user_meets         user_meets[]
+  user_plogging_info user_plogging_info?
+  user_point_log     user_point_log[]
+}

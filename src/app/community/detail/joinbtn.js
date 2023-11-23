@@ -4,7 +4,7 @@ import {toast, Slide} from 'react-toastify';
 
 export default function JoinBtn(){
 
-    let joinList=['이깨끗', '동작구 클리너']
+    let joinList=['이깨끗', '동작구 클리너', '텀블러 수집가']
 
     let [joinStr, setJoinStr] = useState();
 
