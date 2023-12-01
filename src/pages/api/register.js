@@ -29,11 +29,14 @@ export default async function register(req, res){
                     introduction: body.introduction ?? ""
                 }
             })
+            const newUserPloggingInfo = await db.user_plogging_info.create({
+                data: {
+                    userid: newUser.id
+                }
+            })
             res.status(201).json({ newUser });
         }
-        
     }
-
 }
 
 async function hashPw(pw){

@@ -12,20 +12,20 @@ model coupons {
   storename      String?       @db.VarChar(255)
   address        String?       @db.VarChar(255)
   content        String?       @db.VarChar(255)
-  required_point Int?
+  required_point Int           @default(0)
   user_coupon    user_coupon[]
 }
 
 model meets {
   id          String       @id @default(uuid())
-  leaderid    String?      @db.VarChar(255)
+  leaderid    String       @db.VarChar(255)
   status      String?      @db.VarChar(255)
   title       String?      @db.VarChar(255)
   content     String?      @db.VarChar(255)
   location    String?      @db.VarChar(255)
   daytime     DateTime?    @db.DateTime(0)
-  current_num Int?
-  max_num     Int?
+  current_num Int?         @default(0)
+  max_num     Int?         @default(0)
   users       users?       @relation(fields: [leaderid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "meets_ibfk_1")
   user_meets  user_meets[]
 
@@ -34,14 +34,14 @@ model meets {
 
 model plogging_log {
   id               String    @id @default(uuid())
-  userid           String?   @db.VarChar(255)
-  day              DateTime? @db.Date
-  accumulated_time Int?
-  regular          Int?
-  plastic_bag      Int?
-  can              Int?
-  plastic          Int?
-  point            Int?
+  userid           String   @db.VarChar(255)
+  day              DateTime @default(dbgenerated("NOW()")) @db.DateTime
+  accumulated_time Int  @default(0)
+  regular          Int  @default(0)
+  plastic_bag      Int  @default(0)
+  can              Int  @default(0)
+  plastic          Int  @default(0)
+  point            Int  @default(0)
   users            users?    @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "plogging_log_ibfk_1")
 
   @@index([userid], map: "userid")
@@ -69,23 +69,23 @@ model user_meets {
 
 model user_plogging_info {
   userid           String @id @db.VarChar(255)
-  accumulated_time Int?
-  point            Int?
-  count            Int?
-  regular          Int?
-  plastic_bag      Int?
-  can              Int?
-  plastic          Int?
+  accumulated_time Int  @default(0)
+  count            Int  @default(0)
+  regular          Int  @default(0)
+  plastic_bag      Int  @default(0)
+  can              Int  @default(0)
+  plastic          Int  @default(0)
+  point            Int  @default(0)
   users            users  @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_plogging_info_ibfk_1")
 }
 
 model user_point_log {
   id         String    @id @default(uuid())
-  userid     String?   @db.VarChar(255)
-  day        DateTime? @db.Date
-  title      Int?
-  content    Int?
-  point_info Int?
+  userid     String   @db.VarChar(255)
+  day        DateTime @default(dbgenerated("NOW()")) @db.DateTime
+  title      String?
+  content    String?
+  point_info String?
   users      users?    @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_point_log_ibfk_1")
 
   @@index([userid], map: "userid")
@@ -93,9 +93,9 @@ model user_point_log {
 
 model users {
   id                 String              @id @default(uuid())
-  name               String?             @db.VarChar(255) @unique
-  email              String?             @db.VarChar(255) @unique
-  pw                 String?             @db.VarChar(255)
+  name               String              @db.VarChar(255) @unique
+  email              String              @db.VarChar(255) @unique
+  pw                 String              @db.VarChar(255)
   address            String?             @db.VarChar(255)
   introduction       String?             @db.MediumText
   meets              meets[]

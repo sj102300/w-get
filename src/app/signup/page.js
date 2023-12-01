@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Headerbar from '../headerbar';
 
 import './signup.scss'
+import { useRouter } from 'next/navigation';
 
 
 
@@ -14,6 +15,8 @@ function SignUp() {
     let [pwCheck, setPwCheck] = useState('');
     let [nickname, setNickname] = useState('');
     let [address, setAddress] = useState('');
+
+    let router = useRouter();
 
     return (
         <div className="signup">
@@ -53,7 +56,8 @@ function SignUp() {
                     }).then((res) => {
                         return res.json();
                     }).then((result) => {
-                        console.log(result);
+                        window.alert("회원가입에 성공했습니다! 로그인 해주세요!");
+                        router.push('/login')
                     })
                 }}>회원가입 하기</button>
         </div>

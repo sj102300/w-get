@@ -1,47 +1,66 @@
+'use client'
 
+import { useEffect, useState } from 'react';
 import './mypage.scss';
 import Image from 'next/image';
 
+export default async function MyPage() {
 
-async function MyPage() {
+    let [user, setUser] = useState({
+        name: '',
+        introduction: "소개글을 작성해주세요!"
+    });
+    let [ploggingInfo, setPloggingInfo] = useState({
+        accumulated_time: 0,
+        count: 0,
+        point:0,
+        plastic:0,
+        plastic_bag:0,
+        can: 0,
+        regular:0,
+    });
 
-    let accessToken = sessionStorage.getItem("accessToken");
+    let accessToken;
 
-    //mypage정보 가져오는 api 호출
+    useEffect(() => {
+        accessToken = sessionStorage.getItem("accessToken");
+        fetch('/api/mypage', {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        }).then((response) => {
+            return response.json();
+        }).then((result) => {
+            setUser(result.user);
+            setPloggingInfo(result.userPloggingInfo);
+        })
+    }, [])
 
     return (
         <div className='my-page'>
             <div className='profile-top'>
                 <Image width={'92'} height={'102'} src="/images/EarthImg.png" alt="프로필사진" />
-                <div><p>누적 시간</p><h4>5h42m</h4></div>
-                <div><p>참여 횟수</p><h4>5회</h4></div>
-                <div><p>포인트</p><h4>2000</h4></div>
+                <div><p>누적 시간</p><h4>{ploggingInfo.accumulated_time}</h4></div>
+                <div><p>참여 횟수</p><h4>{ploggingInfo.count}</h4></div>
+                <div><p>포인트</p><h4>{ploggingInfo.point}</h4></div>
             </div>
 
-            <div className='profile-bottom'>
-                <input />
-            </div>
 
-            <div className='profile-bottom'>
-                <textarea />
-            </div>
+            <div className='profile-bottom'><p>{user.name} 님</p></div>
+            <div className='profile-bottom'><p>{
+                user.introduction === '' ? "소개글을 작성해주세요!" : user.introduction
+            }</p></div>
 
 
             <div className='thick-line'></div>
 
             <h1>나의 쓰담</h1>
             <div className='my-logs'>
-                <div><h2>3</h2><p></p>일반쓰레기</div>
-                <div><h2>3</h2><p></p>일반쓰레기</div>
-                <div><h2>3</h2><p></p>일반쓰레기</div>
-                <div><h2>3</h2><p></p>일반쓰레기</div>
-                {/* 
-                    record.category.map((e)=>{
-                        return(
-                            <div><h2>{e.num}</h2><p>{e.name}</p></div>
-                        )
-                    })
-                */}
+                <div><h2>{ploggingInfo.regular}</h2><p></p>일반쓰레기</div>
+                <div><h2>{ploggingInfo.can}</h2><p></p>캔</div>
+                <div><h2>{ploggingInfo.plastic}</h2><p>플라스틱</p></div>
+                <div><h2>{ploggingInfo.plastic_bag}</h2><p>비닐</p></div>
             </div>
             <div className='thick-line'></div>
 
@@ -49,32 +68,40 @@ async function MyPage() {
             <h1>자주하는 질문</h1>
             <h1>고객센터</h1>
             <h1>로그아웃</h1>
+            <h1 onClick={()=>{
+                fetch("/api/mypage", {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    },
+                }).then((response)=>{
+                    return response.json();
+                }).then((result)=>{
+                    window.alert('다음에 또 만나요!')
+                })
+            }}>회원탈퇴</h1>
 
         </div>
     )
 }
-
-export default MyPage;
-
-
-
 
 
 
 
 // {
 //     nameUpdate ?
-        // <div className='profile-bottom'>
-        //     <input />
-        //     <svg onClick={() => {
-        //         /* 수정 api보내기 */
-        //     }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-        //         <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C13.4121 3 14.7482 3.32519 15.9375 3.90476M19.3125 6.375L11.4375 14.25L9.1875 12" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
-        //     </svg>
-        // </div>
+//         <div className='profile-bottom'>
+//             <input placeholder={user.name} />
+//             <svg onClick={() => {
+//                 setNameUpdate(true);
+
+//             }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                 <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C13.4121 3 14.7482 3.32519 15.9375 3.90476M19.3125 6.375L11.4375 14.25L9.1875 12" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
+//             </svg>
+//         </div>
 //         :
 //         <div className='profile-bottom'>
-//             <p>이깨끗님</p>
+//             <p>{user.name} 님</p>
 //             <svg onClick={() => {
 //                 /* 수정 api보내기 */
 //             }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 17" fill="none">
@@ -83,6 +110,11 @@ export default MyPage;
 //             </svg>
 //         </div>
 // }
+
+
+
+
+
 // {
 //     msgUpdate ?
 //         <div className='profile-bottom'>
