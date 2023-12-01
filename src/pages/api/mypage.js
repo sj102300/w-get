@@ -1,49 +1,55 @@
-export default function handler(req, res) {
-
-    let user = {
-        address: '서울특별시 동작구',
-        email: 'sj102300@naver.com',
-        id: 'cleanlee',
-        pw: 'cleanlee',
-        intro: '안녕하세요~~ 이깨끗입니다~~~ 보라매역 근처에서 자주 나타납니다!!!',
-        name: '이깨끗',
-        point: 2000,
-        role: 'normal'
-    }
-
-    let record = {
-        seconds: 20072,
-        time: 6,
-        category: [{
-            name: '일반쓰레기', num:23
-        }, {
-            name: '캔', num: 37
-        }, {
-            name: '플라스틱', num: 94
-        }, {
-            name: '비닐', num: 46
-        }
-        ]
-    }
+import db from '../../utils/database'
 
 
-    if (req.method === 'GET') {
-        let data = {
-            user : {
-                name: user.name,
-                intro: user.intro,
-                point: user.point
-    
-            },
-            record: {
-                seconds: record.seconds,
-                time: record.time,
-                category: record.category
-            }
-        }
+export default async function getMyPageInfo(req, res) {
+
+    let userid = req.headers.userid;
+
+    if(req.method === "GET"){
         
-        res.status(200).json(data)
+        const user = await db.users.findUnique({
+            where: {
+                id: userid
+            }
+        })
+        if(!user){
+            res.status(404).json({ message: "등록된 유저가 없습니다." });
+        }
+        const userPloggingInfo = await db.user_plogging_info.findUnique({
+            where:{
+                userid: userid
+            }
+        })
+        const data = { 
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                address: user.address,
+                introduction: user.introduction,
+            },
+            userPloggingInfo 
+        };
+        res.status(200).json(data);
     
     }
+
+    if(req.method === "DELETE"){
+        //회원탈퇴
+        // await db.user_plogging_info.delete({
+        //     where:{
+        //         userid: userid
+        //     }
+        // })
+        // await db.users.delete({
+        //     where: {
+        //         id: userid
+        //     }
+        // })
+        // if(!user){
+        //     res.status(404).json({message: "등록된 유저가 아닙니다." });
+        // }
+    }
+
 
 }

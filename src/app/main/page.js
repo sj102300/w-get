@@ -22,16 +22,7 @@ function Plogging() {
         clearInterval(intervalId);
     }
   }, [status]);
-
-  useEffect(()=>{
-
-    fetch('/api/test').then((result)=>{
-        console.log(result);
-    })
-
-  },[])
-
-
+  
     return (
         <div className="plogging">
             <KakaoMap className="map" nephron={nephron} trash={trash} />
@@ -72,7 +63,13 @@ function Proceed({ time, setStatus }) {
             <button onClick={()=>{
                 setStatus(false);
             }} className="white-btn w-[150px] mt-[15px]">
-                <Link href="/main/enter-result">플로깅 종료하기</Link>
+                <Link href={{
+                    pathname: "/main/endding",
+                    query: {
+                        time: Number(time)
+                    }
+                }}
+                >플로깅 종료하기</Link>
             </button>
         </div>
     )
