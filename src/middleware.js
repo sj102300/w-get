@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+//middleware에서 jsonwebtoken을 못써서 다른 라이브러리인 Jose를 씀
 import { decodeJwt } from 'jose';
 
 export function middleware(request) {
@@ -17,14 +18,17 @@ export function middleware(request) {
       response.headers.append("userid", decodedToken.id);
     }
     else {
-      response.json({ status: 403, message: "잘못된 접근입니다." })
+      response.json({ status: 401, message: "토큰이 이상해요!" })
     }
   }
-
+  else{
+    response.json({ status: 401, message: '토큰 정보 없음'})
+  }
+  
   return response;
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/api/mypage', '/api/plogging-log']
+  matcher: ['/api/mypage', '/api/plogging-log', '/api/meets', '/api/join']
 }

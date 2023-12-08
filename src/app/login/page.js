@@ -59,7 +59,7 @@ function Login() {
                             router.push('/mypage');
                         })
                     }} className={email.valid && pw !== '' ? 'green-btn w-full' : 'darkgray-btn w-full'} >로그인하기</button>
-                <button className='white-btn w-full mt-[12px]'><Link href="/signup" >회원가입하기</Link></button>
+                <button className='white-btn w-full mt-[12px]'><Link href="/register" >회원가입하기</Link></button>
             </div>
 
         </>

@@ -64,6 +64,7 @@ model user_meets {
   meets   meets  @relation(fields: [meetsid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_meets_ibfk_2")
 
   @@id([meetsid, userid])
+  @@unique([meetsid, userid])
   @@index([userid], map: "userid")
 }
 
