@@ -14,7 +14,7 @@ function Meets() {
                 <Image src="/images/logo.png" alt="logo" width={'30'} height={'30'} />
                 <h2>같이하기</h2>
                 </div>
-                <button><Link href="/community/write" >+ 그룹 만들기</Link></button>
+                <button><Link href="/meets/write" >+ 그룹 만들기</Link></button>
             </div>
             <div className='type-navbar'>
                 <button id="type1" >탐색</button>

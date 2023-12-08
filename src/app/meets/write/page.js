@@ -3,11 +3,10 @@
 import "./write.scss";
 
 import Headerbar from "../../headerbar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import 'node_modules/react-datepicker/dist/react-datepicker.css';
-import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 
 function Write() {
 
@@ -17,6 +16,8 @@ function Write() {
     let [content, setContent] = useState({ content: '', valid: false });
 
     const [startDate, setStartDate] = useState(new Date());
+
+    let router = useRouter();
 
     return (
         <div>
@@ -37,13 +38,13 @@ function Write() {
                     }} />
                 <h2>시간</h2>
                 <div className="date-picker">
-                <DatePicker
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                    timeInputLabel="Time:"
-                    dateFormat="yyyy/MM/dd h:mm aa"
-                    showTimeInput
-                /></div>
+                    <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        timeInputLabel="Time:"
+                        dateFormat="yyyy/MM/dd h:mm aa"
+                        showTimeInput
+                    /></div>
                 <h2>인원</h2>
                 <input className={num.content === '' ? '' : (num.valid ? 'valid' : 'invalid')}
                     type="number" placeholder="3 ~ 300 사이의 숫자만 입력해주세요" defaultValue={num.content} onChange={(e) => {
@@ -55,7 +56,32 @@ function Write() {
                     placeholder="2 ~ 100 자 이내로 작성해주세요." defaultValue={content.content} onChange={(e) => {
                         setContent({ content: e.target.value, valid: e.target.value.length >= 2 && e.target.value.length <= 100 ? true : false });
                     }} />
-                <button className={title.valid && location.valid && num.valid && content.valid ? 'w-full green-btn' : 'w-full gray-btn'} ><Link href="/community">만들기</Link></button>
+                {
+                    title.valid && location.valid && num.valid && content.valid ?
+                        <button className='w-full green-btn'
+                            onClick={() => {
+                                let accessToken = sessionStorage.getItem('accessToken');
+                                fetch('/api/meets', {
+                                    method: "POST",
+                                    headers: {
+                                        Authorization: `Bearer ${accessToken}`
+                                    },
+                                    body: JSON.stringify({
+                                        title: title.content,
+                                        content: content.content,
+                                        location: location.content,
+                                        maxNum: num.content,
+                                        daytime: startDate //kst timezone
+                                    }),
+                                }).then((response) => {
+                                    return response.json()
+                                }).then((result) => {
+                                    router.push(`/meets/detail/${result.newMeet.id}`)
+                                })
+                            }}
+                        >만들기</button>
+                        : <button className='w-full gray-btn'>만들기</button>
+                }
             </div>
         </div>
     )
