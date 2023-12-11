@@ -9,8 +9,8 @@ datasource db {
 
 model coupons {
   id             String        @id @default(uuid())
-  storename      String?       @db.VarChar(255)
-  address        String?       @db.VarChar(255)
+  storename      String       @db.VarChar(255)
+  address        String        @db.VarChar(255) //서울특별시 광진구 화양동 45-19, 101호
   content        String?       @db.VarChar(255)
   required_point Int           @default(0)
   user_coupon    user_coupon[]
@@ -20,12 +20,15 @@ model meets {
   id          String       @id @default(uuid())
   leaderid    String       @db.VarChar(255)
   status      String?      @db.VarChar(255)
-  title       String?      @db.VarChar(255)
-  content     String?      @db.VarChar(255)
-  location    String?      @db.VarChar(255)
-  daytime     DateTime?    @db.DateTime(0)
-  current_num Int?         @default(0)
-  max_num     Int?         @default(0)
+  title       String       @db.VarChar(255)
+  content     String       @db.VarChar(255)
+  lat         Decimal?     @db.Decimal(10,7)   //위도
+  lng         Decimal?     @db.Decimal(10,7)   //경도
+  address     String?      @db.VarChar(255)   //서울특별시 광진구 아차산로23길 26, 101호
+  jibun       String?      @db.VarChar(255)   //서울특별시 광진구 화양동 45-19, 101호
+  daytime     DateTime     @db.DateTime(0)
+  current_num Int          @default(0)
+  max_num     Int          @default(0)
   users       users?       @relation(fields: [leaderid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "meets_ibfk_1")
   user_meets  user_meets[]
 
@@ -54,6 +57,7 @@ model user_coupon {
   coupons  coupons @relation(fields: [couponid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_coupon_ibfk_2")
 
   @@id([userid, couponid])
+  @@unique([userid, couponid])
   @@index([couponid], map: "couponid")
 }
 
@@ -97,7 +101,7 @@ model users {
   name               String              @db.VarChar(255) @unique
   email              String              @db.VarChar(255) @unique
   pw                 String              @db.VarChar(255)
-  address            String?             @db.VarChar(255)
+  address            String?             @db.VarChar(255) //서울특별시 광진구 화양동 45-19, 101호
   introduction       String?             @db.MediumText
   meets              meets[]
   plogging_log       plogging_log[]

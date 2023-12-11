@@ -4,7 +4,6 @@ import Image from "next/image";
 
 async function DetailList() {
 
-    //여기 detail페이지로 가는 거 routing, css깨지는거 다시 만들기
     let list = await db.meets.findMany();
     console.log(list);
 
@@ -36,7 +35,7 @@ async function DetailList() {
                                             <path d="M7.50004 13.1C7.50004 13.1 11.8827 9.20436 11.8827 6.28262C11.8827 3.86217 9.92049 1.90001 7.50004 1.90001C5.07959 1.90001 3.11743 3.86217 3.11743 6.28262C3.11743 9.20436 7.50004 13.1 7.50004 13.1Z" stroke="#A2A2A2" />
                                             <path d="M8.90022 6.1001C8.90022 6.8733 8.27342 7.5001 7.50022 7.5001C6.72702 7.5001 6.10022 6.8733 6.10022 6.1001C6.10022 5.3269 6.72702 4.7001 7.50022 4.7001C8.27342 4.7001 8.90022 5.3269 8.90022 6.1001Z" stroke="#A2A2A2" />
                                         </svg>
-                                        <p>{e.location}</p>
+                                        <p>{e.address}</p>
                                     </span>
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">

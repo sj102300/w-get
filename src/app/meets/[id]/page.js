@@ -22,7 +22,8 @@ async function Detail(props) {
             id: meets.leaderid,
         },
         select: {
-            name: true
+            id: true,
+            name: true,
         }
     })
 
@@ -39,7 +40,7 @@ async function Detail(props) {
             <Headerbar title={meets.title} color={'#fff'} />
             <div className="top-container">
                 <div className='map'>
-                    <KakaoMap />
+                    <KakaoMap lat={Number(meets.lat)} lng={Number(meets.lng)}/>
                 </div>
                 <div className='w-full info text-[#464646]'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
@@ -53,10 +54,10 @@ async function Detail(props) {
                 <h4>플로깅 리더</h4>
                 <p>{leader.name}</p>
                 <h4>위치</h4>
-                <p>{meets.location}</p>
+                <p>{meets.address}</p>
                 <h4>소개글</h4>
                 <p>{meets.content}</p>
-                <JoinBtn current_num={meets.current_num} max_num={meets.max_num} id={meets.id} />
+                <JoinBtn isMine={leader.id === meets.leaderid} current_num={meets.current_num} max_num={meets.max_num} id={meets.id} />
             </div>
 
         </div>

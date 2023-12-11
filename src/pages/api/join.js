@@ -69,7 +69,7 @@ export default async function getMeetsJoinList(req, res){
         }
     }
 
-    if(req.method === 'PATCH'){
+    if(req.method === 'DELETE'){
         let userid = req.headers.userid;
         let meetsid = JSON.parse(req.body).meetsid;
 

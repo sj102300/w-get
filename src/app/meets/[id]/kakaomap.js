@@ -5,13 +5,13 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_KEY}&autoload=false`;
 
-const KakaoMap = () => {
+const KakaoMap = ({ lat, lng }) => {
 
     return (
         <>
             <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
-            <Map center={{ lat: 37.50, lng: 126.9207 }} style={{ width: '100%', height: '100%' }}>
-                <MapMarker position={{ lat: 37.50, lng: 126.9207 }}
+            <Map center={{ lat: lat, lng: lng }} style={{ width: '100%', height: '100%' }}>
+                <MapMarker position={{ lat: lat, lng: lng }}
                     image={{
                         src: "/images/current-location.png",
                         size: {
