@@ -2,6 +2,14 @@ import db from '../../utils/database'
 
 export default async function Meets(req,res){
 
+    if(req.method === 'GET'){
+        let list = await db.meets.findMany({
+            where: {
+                address: '' // 검색해당 범주에 있는거
+            }
+        });
+    }
+
     //게시글 작성
     if(req.method === "POST"){
         let userid = req.headers.userid;
