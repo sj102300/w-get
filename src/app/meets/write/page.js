@@ -7,15 +7,31 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import 'node_modules/react-datepicker/dist/react-datepicker.css';
 import { useRouter } from "next/navigation";
+import PostModal from "@/app/components/postModal";
+import { convertAddressToLatLng } from "@/utils/convertAddressToLatLng";
 
 function Write() {
 
     let [title, setTitle] = useState({ content: '', valid: false });
-    let [location, setLocation] = useState({ content: '', valid: false });
     let [num, setNum] = useState({ content: '', valid: false });
+    let [address, setAddress] = useState({ address: '', jibun: '', lat: 0, lng: 0, valid: false});
     let [content, setContent] = useState({ content: '', valid: false });
 
     const [startDate, setStartDate] = useState(new Date());
+
+    let [modal, setModal] = useState(false);
+
+    const handleComplete = async (data) => {
+        let latLng = await convertAddressToLatLng(data.address);
+        setAddress({
+            address: data.address,
+            jibun: data.jibunAddress,
+            lat: latLng.lat,
+            lng: latLng.lng,
+            valid: true,
+        });
+        setModal(false);
+    }
 
     let router = useRouter();
 
@@ -31,11 +47,16 @@ function Write() {
                         setTitle({ content: e.target.value, valid: e.target.value.length >= 2 && e.target.value.length <= 20 ? true : false })
                     }} />
                 <h2>위치</h2>
-                <input className={location.content === '' ? '' : (location.valid ? 'valid' : 'invalid')}
-                    placeholder="2 ~ 20 자 이내로 찾기 쉬운 주소를 작성해주세요." defaultValue={location.content}
-                    onChange={(e) => {
-                        setLocation({ content: e.target.value, valid: e.target.value.length >= 2 && e.target.value.length <= 20 ? true : false });
+                <input className={address.address === '' ? '' : (address.valid ? 'valid' : 'invalid')} type="text" placeholder='주소 찾기' value={address.address}
+                    onClick={(e) => {
+                        setModal(true);
                     }} />
+                {
+                    modal ?
+                        <PostModal setModal={setModal} handleComplete={handleComplete} />
+                        : null
+
+                }
                 <h2>시간</h2>
                 <div className="date-picker">
                     <DatePicker
@@ -57,7 +78,7 @@ function Write() {
                         setContent({ content: e.target.value, valid: e.target.value.length >= 2 && e.target.value.length <= 100 ? true : false });
                     }} />
                 {
-                    title.valid && location.valid && num.valid && content.valid ?
+                    title.valid && address.valid && num.valid && content.valid ?
                         <button className='w-full green-btn'
                             onClick={() => {
                                 let accessToken = sessionStorage.getItem('accessToken');
@@ -69,14 +90,17 @@ function Write() {
                                     body: JSON.stringify({
                                         title: title.content,
                                         content: content.content,
-                                        location: location.content,
                                         maxNum: num.content,
+                                        address: address.address,
+                                        jibun: address.jibun,
+                                        lat: address.lat,
+                                        lng: address.lng,
                                         daytime: startDate //kst timezone
                                     }),
                                 }).then((response) => {
                                     return response.json()
                                 }).then((result) => {
-                                    router.push(`/meets/detail/${result.newMeet.id}`)
+                                    router.push(`/meets/${result.newMeet.id}`)
                                 })
                             }}
                         >만들기</button>

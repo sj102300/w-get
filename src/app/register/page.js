@@ -3,18 +3,27 @@
 import { useState } from 'react';
 import Headerbar from '../headerbar';
 
-import './signup.scss'
+import './register.scss'
 import { useRouter } from 'next/navigation';
 
+import PostModal from '../components/postModal';
 
 
-function SignUp() {
+
+function Register() {
 
     let [email, setEmail] = useState('');
     let [pw, setPw] = useState('');
     let [pwCheck, setPwCheck] = useState('');
     let [nickname, setNickname] = useState('');
     let [address, setAddress] = useState('');
+
+    let [modal, setModal] = useState(false);
+
+    const handleComplete = async (data) => {
+        setAddress(data.address)
+        setModal(false);
+    }
 
     let router = useRouter();
 
@@ -38,10 +47,15 @@ function SignUp() {
                 onChange={(e) => {
                     setNickname(e.target.value);
                 }} />
-            <input type="text" placeholder='주소'
-                onChange={(e) => {
-                    setAddress(e.target.value);
+            <input type="text" placeholder='주소 찾기'
+                onClick={(e) => {
+                    setModal(true);
                 }} />
+            {
+                modal ?
+                    <PostModal setModal={setModal} handleComplete={handleComplete} />
+                    : null
+            }
 
             <button className='green-btn w-full mt-[20px]s'
                 onClick={() => {

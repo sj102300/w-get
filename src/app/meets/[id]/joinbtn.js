@@ -3,10 +3,11 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { toast, Slide } from 'react-toastify';
 
-export default function JoinBtn({ id, current_num, max_num }) {
+export default function JoinBtn({ id, current_num, max_num, isMine }) {
 
     let router = useRouter();
     let [isJoin, setIsJoin] = useState(false);
+
 
     let [joinList, setJoinList] = useState([]);
     let [joinNameList, setJoinNameList] = useState([]);
@@ -36,12 +37,31 @@ export default function JoinBtn({ id, current_num, max_num }) {
         <h4>인원</h4>
         <p>{`${currentNum}/${max_num}`}</p>
             {
+                isMine ? <button className='gray-btn w-full mb-[10px]' onClick={() => {
+                    let accessToken = sessionStorage.getItem('accessToken');
+                    //모임삭제, delete
+                    fetch('/api/meets', {
+                        method: "DELETE",
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`
+                        },
+                        body: JSON.stringify({
+                            meetsid: id,
+                        })
+                    }).then((response)=>{
+                        console.log(response);
+                        return response;
+                    }).then(()=>{
+                        window.alert('삭제되었습니다.');
+                        router.push('/meets');
+                    })
+                }}>모임 삭제하기</button> :  
                 isJoin ?
                     <button className='gray-btn w-full mb-[10px]' onClick={() => {
                         let accessToken = sessionStorage.getItem('accessToken');
                         //참여취소, delete
                         fetch('/api/join', {
-                            method: 'PATCH',
+                            method: 'DELETE',
                             headers: {
                                 Authorization: `Bearer ${accessToken}`
                             },
@@ -57,7 +77,7 @@ export default function JoinBtn({ id, current_num, max_num }) {
                     }}>취소하기</button>
                     : <button onClick={() => {
                         let accessToken = sessionStorage.getItem('accessToken');
-                        if (accessToken === undefined) {
+                        if (!accessToken) {
                             window.alert('로그인 후 이용 바랍니다.');
                             router.push('/login');
                         }

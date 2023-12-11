@@ -17,7 +17,10 @@ export default async function Meets(req,res){
                 title: body.title,
                 content: body.content,
                 daytime: KSTdaytime,
-                location: body.location,
+                address: body.address,
+                lat: Number(body.lat),
+                lng: Number(body.lng),
+                jibun: body.jibun,
                 max_num: body.maxNum,
                 current_num: 1,
                 status: '모집중'
@@ -32,6 +35,25 @@ export default async function Meets(req,res){
         })
         
         res.status(200).json({ newMeet });
+    }
+
+    if(req.method === 'DELETE'){
+        let meetsid = JSON.parse(req.body).meetsid;
+
+        let targetUserMeets = await db.user_meets.deleteMany({
+            where: {
+                meetsid: meetsid,
+            }
+        })
+
+        let targetMeets = await db.meets.delete({
+            where:{
+                id: meetsid,
+            }
+        })
+
+        res.status(204).json();
+
     }
 
 }

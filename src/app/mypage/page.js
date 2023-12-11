@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import './mypage.scss';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default async function MyPage() {
 
@@ -20,10 +21,14 @@ export default async function MyPage() {
         regular:0,
     });
 
-    let accessToken;
+    let router = useRouter();
 
     useEffect(() => {
-        accessToken = sessionStorage.getItem("accessToken");
+        let accessToken = sessionStorage.getItem("accessToken");
+        if(!accessToken) {
+            window.alert('로그인 후 이용바랍니다.');
+            router.push('/login');
+        }
         fetch('/api/mypage', {
             method: "GET",
             headers: {
@@ -53,7 +58,7 @@ export default async function MyPage() {
             }</p></div>
 
 
-            <div className='thick-line'></div>
+            <div className='thick-line' />
 
             <h1>나의 쓰담</h1>
             <div className='my-logs'>
@@ -69,6 +74,7 @@ export default async function MyPage() {
             <h1>고객센터</h1>
             <h1>로그아웃</h1>
             <h1 onClick={()=>{
+                let accessToken = sessionStorage.getItem('accessToken');
                 fetch("/api/mypage", {
                     method: "DELETE",
                     headers: {
