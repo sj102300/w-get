@@ -1,18 +1,23 @@
 import db from '../../utils/database'
 
-export default async function Meets(req,res){
+export default async function Meets(req, res) {
 
-    if(req.method === 'GET'){
-        let list = await db.meets.findMany({
-            where: {
-                address: '' // 검색해당 범주에 있는거
-            }
-        });
+    if (req.method === 'GET') {
+        let query = req.query;
+        let list = query.address === '' ?
+            await db.meets.findMany({})
+            : await db.meets.findMany({
+                where: {
+                    address: query.address
+                }
+            });
+        res.status(200).json({ list });
     }
 
     //게시글 작성
-    if(req.method === "POST"){
+    if (req.method === "POST") {
         let userid = req.headers.userid;
+        console.log(userid);
         let body = JSON.parse(req.body);
 
         //body에 있는 daytime이 KST인데 UTC로 해석하니까 KST로 바꿔줘야함
@@ -41,11 +46,11 @@ export default async function Meets(req,res){
                 meetsid: newMeet.id
             }
         })
-        
+
         res.status(200).json({ newMeet });
     }
 
-    if(req.method === 'DELETE'){
+    if (req.method === 'DELETE') {
         let meetsid = JSON.parse(req.body).meetsid;
 
         let targetUserMeets = await db.user_meets.deleteMany({
@@ -55,13 +60,11 @@ export default async function Meets(req,res){
         })
 
         let targetMeets = await db.meets.delete({
-            where:{
+            where: {
                 id: meetsid,
             }
         })
-
         res.status(204).json();
-
     }
 
 }

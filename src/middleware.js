@@ -7,7 +7,7 @@ export function middleware(request) {
   const requestHeaders = new Headers(request.headers);
   let authorization = requestHeaders.get('Authorization') || requestHeaders.get('authorization');
 
-  const response = NextResponse.next();
+  const response = NextResponse;
 
   if (typeof authorization === 'string' &&
     (authorization.includes('bearer') || authorization.includes('Bearer'))) {
@@ -15,17 +15,21 @@ export function middleware(request) {
     if (bearer.length === 2 && typeof bearer[1] === "string") {
       const accessToken = bearer[1];
       const decodedToken = decodeJwt(accessToken, process.env.JWT_KEY);
-      response.headers.append("userid", decodedToken.id);
+      requestHeaders.set('userid', decodedToken.id);
     }
     else {
       response.json({ status: 401, message: "토큰이 이상해요!" })
     }
   }
-  else{
-    response.json({ status: 401, message: '토큰 정보 없음'})
+  else {
+    response.json({ status: 401, message: '헤더에 토큰 정보 없음' })
   }
-  
-  return response;
+
+  return response.next({
+    request: {
+      headers: requestHeaders,
+    }
+  });
 }
 
 // See "Matching Paths" below to learn more
