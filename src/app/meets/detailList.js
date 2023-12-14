@@ -5,30 +5,37 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 async function DetailList({ detailList }) {
-
     let [list, setList] = useState(detailList);
+    let [address, setAddress] = useState('');
 
     useEffect(()=>{
-
+        async function getNewList(address){
+           setList(await getDetailListWithAddress(address));
+        }
+        getNewList(address);
     },[])
 
     return (
         <>
             <div className='type-navbar'>
                 <select id='depth'>
-                    {/* 이거 시/도 시군구 이름 같은데는 어쩔거임? 예를들어 대구의 남구랑 광주의 남구 어케 구분할겨 */}
                     <option value="1">시/도</option>
                     <option value="2">시/군/구</option>
                     <option value="3">읍/면/동</option>
                 </select>
-                <input type='text' placeholder="주소 입력" />
-                <button onClick={()=>{
-                    setList();
+                <input
+                    onChange={(e) => {
+                        setAddress(e.target.value);
+                    }}
+                    type='text' placeholder="지번 주소로 검색하기" />
+                <button onClick={async () => {
+                    let result = await getDetailListWithAddress(address);
                 }}>검색</button>
             </div>
             <div className="item-container">
                 {
                     list.map((e, i) => {
+                        e.daytime = new Date(e.daytime);
                         e.daytime.setHours(e.daytime.getHours() - 9);
                         let month = e.daytime.getMonth() + 1; //0~11로 반환해서 1더해줘야됨
                         let day = e.daytime.getDate();
@@ -71,6 +78,21 @@ async function DetailList({ detailList }) {
             </div>
         </>
     )
+}
+
+async function getDetailListWithAddress(address) {
+
+    let list = await new Promise((resolve, reject) => {
+        fetch(`/api/meets?address=${address}`, {
+            method: 'GET',
+        }).then((response) => {
+            return response.json();
+        }).then((result) => {
+            resolve(result.list);
+        })
+    })
+
+    return list;
 }
 
 export default DetailList;

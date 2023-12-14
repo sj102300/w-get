@@ -23,5 +23,4 @@ export async function convertAddressToLatLng(address) {
     })
 
     return result;
-
 }

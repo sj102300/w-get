@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { toast, Slide } from 'react-toastify';
 
 export default function JoinBtn({ id, current_num, max_num, isMine }) {
@@ -37,7 +38,8 @@ export default function JoinBtn({ id, current_num, max_num, isMine }) {
         <h4>인원</h4>
         <p>{`${currentNum}/${max_num}`}</p>
             {
-                isMine ? <button className='gray-btn w-full mb-[10px]' onClick={() => {
+                isMine ? <Link href="/meets">
+                    <button className='gray-btn w-full mb-[10px]' onClick={() => {
                     let accessToken = sessionStorage.getItem('accessToken');
                     //모임삭제, delete
                     fetch('/api/meets', {
@@ -53,9 +55,9 @@ export default function JoinBtn({ id, current_num, max_num, isMine }) {
                         return response;
                     }).then(()=>{
                         window.alert('삭제되었습니다.');
-                        router.push('/meets');
+                        // router.push('/meets');
                     })
-                }}>모임 삭제하기</button> :  
+                }}>모임 삭제하기</button></Link> :  
                 isJoin ?
                     <button className='gray-btn w-full mb-[10px]' onClick={() => {
                         let accessToken = sessionStorage.getItem('accessToken');

@@ -3,7 +3,7 @@
 import "./write.scss";
 
 import Headerbar from "../../headerbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import 'node_modules/react-datepicker/dist/react-datepicker.css';
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ function Write() {
 
     let [title, setTitle] = useState({ content: '', valid: false });
     let [num, setNum] = useState({ content: '', valid: false });
-    let [address, setAddress] = useState({ address: '', jibun: '', lat: 0, lng: 0, valid: false});
+    let [address, setAddress] = useState({ address: '', jibun: '', lat: 0, lng: 0, valid: false });
     let [content, setContent] = useState({ content: '', valid: false });
 
     const [startDate, setStartDate] = useState(new Date());
@@ -32,6 +32,14 @@ function Write() {
         });
         setModal(false);
     }
+
+    useEffect(()=>{
+        let accessToken = sessionStorage.getItem('accessToken');
+        if(!accessToken) {
+            window.alert('로그인 후 이용바랍니다.');
+            router.push('/login')
+        }
+    },[])
 
     let router = useRouter();
 
