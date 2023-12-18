@@ -19,8 +19,16 @@ export default async function PloggingLog(req, res) {
 
         data.point = Number(((data.accumulated_time / 60) + (data.regular + data.plastic_bag) * 5 + (data.can + data.plastic) * 10) / 1);
 
-        let newLog = await db.plogging_log.create({
+        let newPloggingLog = await db.plogging_log.create({
             data
+        })
+
+        let newPointLog = await db.user_point_log.create({
+            data: {
+                userid: userid,
+                title: '플로깅 완료',
+                point_info : Number(data.point),
+            }
         })
 
         let target = await db.user_plogging_info.update({
@@ -29,22 +37,22 @@ export default async function PloggingLog(req, res) {
             },
             data: {
                 accumulated_time: {
-                    increment: newLog.accumulated_time
+                    increment: newPloggingLog.accumulated_time
                 },
                 regular: {
-                    increment: newLog.regular
+                    increment: newPloggingLog.regular
                 },
                 plastic_bag: {
-                    increment: newLog.plastic_bag
+                    increment: newPloggingLog.plastic_bag
                 },
                 can: {
-                    increment: newLog.can
+                    increment: newPloggingLog.can
                 },
                 plastic: {
-                    increment: newLog.plastic
+                    increment: newPloggingLog.plastic
                 },
                 point: {
-                    increment: newLog.point
+                    increment: newPloggingLog.point
                 },
                 count: {
                     increment: 1
@@ -52,7 +60,7 @@ export default async function PloggingLog(req, res) {
             },
         })
 
-        res.status(200).json({ newLog });
+        res.status(200).json({ newPloggingLog });
     }
 
     //내 한달치 플로깅 로그 가져오기

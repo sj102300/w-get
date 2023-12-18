@@ -81,7 +81,7 @@ function EnterResult() {
                                     }).then((response)=>{
                                         return response.json();
                                     }).then((result)=>{
-                                        router.push(`/main/result/${result.newLog.id}`);
+                                        router.push(`/main/result/${result.newPloggingLog.id}`);
                                     })
                                 }
                             }}>등록하기</button>

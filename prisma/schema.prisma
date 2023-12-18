@@ -8,11 +8,12 @@ datasource db {
 }
 
 model coupons {
-  id             String        @id @default(uuid())
-  storename      String       @db.VarChar(255)
-  address        String        @db.VarChar(255) //서울특별시 광진구 화양동 45-19, 101호
-  content        String?       @db.VarChar(255)
-  required_point Int           @default(0)
+  id             String  @id @default(uuid())
+  storename      String  @db.VarChar(255)
+  address        String  @db.VarChar(255)
+  content        String? @db.VarChar(255)
+  required_point Int     @default(0)
+
   user_coupon    user_coupon[]
 }
 
@@ -22,43 +23,42 @@ model meets {
   status      String?      @db.VarChar(255)
   title       String       @db.VarChar(255)
   content     String       @db.VarChar(255)
-  lat         Decimal?     @db.Decimal(10,7)   //위도
-  lng         Decimal?     @db.Decimal(10,7)   //경도
-  address     String?      @db.VarChar(255)   //서울특별시 광진구 아차산로23길 26, 101호
-  jibun       String?      @db.VarChar(255)   //서울특별시 광진구 화양동 45-19, 101호
   daytime     DateTime     @db.DateTime(0)
   current_num Int          @default(0)
   max_num     Int          @default(0)
-  users       users?       @relation(fields: [leaderid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "meets_ibfk_1")
+  address     String?      @db.VarChar(255)
+  lat         Decimal?     @db.Decimal(10, 7)
+  lng         Decimal?     @db.Decimal(10, 7)
+  jibun       String?      @db.VarChar(255)
+  users       users        @relation(fields: [leaderid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "meets_ibfk_1")
   user_meets  user_meets[]
 
   @@index([leaderid], map: "leaderid")
 }
 
 model plogging_log {
-  id               String    @id @default(uuid())
+  id               String   @id @default(uuid())
   userid           String   @db.VarChar(255)
-  day              DateTime @default(dbgenerated("NOW()")) @db.DateTime
-  accumulated_time Int  @default(0)
-  regular          Int  @default(0)
-  plastic_bag      Int  @default(0)
-  can              Int  @default(0)
-  plastic          Int  @default(0)
-  point            Int  @default(0)
-  users            users?    @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "plogging_log_ibfk_1")
+  day              DateTime @default(now()) @db.DateTime(0)
+  accumulated_time Int      @default(0)
+  regular          Int      @default(0)
+  plastic_bag      Int      @default(0)
+  can              Int      @default(0)
+  plastic          Int      @default(0)
+  point            Int      @default(0)
+  users            users    @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "plogging_log_ibfk_1")
 
   @@index([userid], map: "userid")
 }
 
 model user_coupon {
-  userid   String  @db.VarChar(255)
-  couponid String  @db.VarChar(255)
-  users    users   @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_coupon_ibfk_1")
-  coupons  coupons @relation(fields: [couponid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_coupon_ibfk_2")
+  id       String @id @default(uuid())
+  userid   String @db.VarChar(255)
+  couponid String @db.VarChar(255)
 
-  @@id([userid, couponid])
-  @@unique([userid, couponid])
-  @@index([couponid], map: "couponid")
+  users   users  @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_coupon_ibfk_1")
+  coupons   coupons  @relation(fields: [couponid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_coupon_ibfk_2")
+  @@index([userid], map: "userid")
 }
 
 model user_meets {
@@ -74,39 +74,39 @@ model user_meets {
 
 model user_plogging_info {
   userid           String @id @db.VarChar(255)
-  accumulated_time Int  @default(0)
-  count            Int  @default(0)
-  regular          Int  @default(0)
-  plastic_bag      Int  @default(0)
-  can              Int  @default(0)
-  plastic          Int  @default(0)
-  point            Int  @default(0)
+  accumulated_time Int    @default(0)
+  count            Int    @default(0)
+  regular          Int    @default(0)
+  plastic_bag      Int    @default(0)
+  can              Int    @default(0)
+  plastic          Int    @default(0)
+  point            Int    @default(0)
   users            users  @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_plogging_info_ibfk_1")
 }
 
 model user_point_log {
-  id         String    @id @default(uuid())
+  id         String   @id @default(uuid())
   userid     String   @db.VarChar(255)
-  day        DateTime @default(dbgenerated("NOW()")) @db.DateTime
-  title      String?
+  day        DateTime @default(now()) @db.DateTime(0)
+  title      String
   content    String?
-  point_info String?
-  users      users?    @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_point_log_ibfk_1")
+  point_info Int
+  users      users    @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_point_log_ibfk_1")
 
   @@index([userid], map: "userid")
 }
 
 model users {
   id                 String              @id @default(uuid())
-  name               String              @db.VarChar(255) @unique
-  email              String              @db.VarChar(255) @unique
+  name               String              @unique @db.VarChar(255)
+  email              String              @unique @db.VarChar(255)
   pw                 String              @db.VarChar(255)
-  address            String?             @db.VarChar(255) //서울특별시 광진구 화양동 45-19, 101호
+  address            String?             @db.VarChar(255)
   introduction       String?             @db.MediumText
   meets              meets[]
   plogging_log       plogging_log[]
-  user_coupon        user_coupon[]
   user_meets         user_meets[]
+  user_coupon        user_coupon[]
   user_plogging_info user_plogging_info?
   user_point_log     user_point_log[]
 }
