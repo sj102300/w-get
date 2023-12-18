@@ -64,10 +64,10 @@
             width: 100%;
             display: flex;
             padding:19px 24px;
-            justify-content: space-between;
 
             border-bottom: 1px solid #F2F2F2;
             background-color: #fff;
+            gap:10px;
 
             p{
                 font-size:larger;
@@ -75,7 +75,7 @@
                 width:15%;
             }
             div{
-                width: 60%;
+                width: 80%;
                 float:left;
                 h3{
                     font-size:large;

@@ -23,7 +23,7 @@ model meets {
   status      String?      @db.VarChar(255)
   title       String       @db.VarChar(255)
   content     String       @db.VarChar(255)
-  daytime     DateTime     @db.DateTime(0)
+  daytime     DateTime     @default(dbgenerated("NOW()")) @db.DateTime(0)
   current_num Int          @default(0)
   max_num     Int          @default(0)
   address     String?      @db.VarChar(255)
@@ -39,7 +39,7 @@ model meets {
 model plogging_log {
   id               String   @id @default(uuid())
   userid           String   @db.VarChar(255)
-  day              DateTime @default(now()) @db.DateTime(0)
+  day              DateTime @default(dbgenerated("NOW()")) @db.DateTime(0)
   accumulated_time Int      @default(0)
   regular          Int      @default(0)
   plastic_bag      Int      @default(0)
@@ -87,7 +87,7 @@ model user_plogging_info {
 model user_point_log {
   id         String   @id @default(uuid())
   userid     String   @db.VarChar(255)
-  day        DateTime @default(now()) @db.DateTime(0)
+  day        DateTime @default(dbgenerated("NOW()")) @db.DateTime(0)
   title      String
   content    String?
   point_info Int

@@ -34,5 +34,5 @@ export function middleware(request) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/api/mypage', '/api/plogging-log', '/api/meets', '/api/join', '/api/coupons']
+  matcher: ['/api/mypage', '/api/plogging-log', '/api/meets', '/api/join', '/api/coupons', '/api/mycoupons', '/api/point-logs']
 }
