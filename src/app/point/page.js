@@ -20,6 +20,7 @@ function Store() {
     
     let [address, setAddress] = useState('');
     let [couponData, setCouponData] = useState([]);
+    // let [couponlist, setCouponList] = useState([]);
 
     useEffect(()=>{
         let accessToken = sessionStorage.getItem('accessToken');
@@ -32,9 +33,8 @@ function Store() {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             },
-        }).then((response)=>{
-            return response.json();
-        }).then((result)=>{
+        }).then((response)=> response.json())
+        .then((result)=>{
             let tmp = result.user.address.split(' ');
             setAddress(result.user.address);
             tmp.shift();
@@ -79,7 +79,7 @@ function Store() {
                 </Link>
                 <Link href="/point/mycoupons">
                     <div className='my-coupon'>
-                        <p>내 쿠폰 보기</p>
+                        <p>내 쿠폰함</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M10 7L15 12L10 17" stroke="#A2A2A2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>

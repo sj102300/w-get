@@ -78,7 +78,7 @@ function Register() {
     )
 }
 
-export default SignUp;
+export default Register;
 
 
             //  <button className={email.valid && pwCheck.valid && nickname.valid ? 'green-btn w-full mt-[20px]s' : 'darkgray-btn w-full mt-[20px]'}
