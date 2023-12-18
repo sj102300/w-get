@@ -17,6 +17,7 @@ async function DetailList({ detailList }) {
 
     return (
         <>
+        {/* 여기 검색부분 완성해야됨.  */}
             <div className='type-navbar'>
                 <select id='depth'>
                     <option value="1">시/도</option>

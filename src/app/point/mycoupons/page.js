@@ -30,7 +30,7 @@ function MyCoupons() {
 }
 
 
-function Coupon({data}) {
+function Coupon({ data }) {
 
     return (
         <div className="coupon">
