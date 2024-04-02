@@ -15,6 +15,8 @@ export default async function login(req, res){
             }
         })
 
+
+
         if(!user) {
             res.status(400).json({ message: "존재하지 않는 이메일입니다." });
         }
@@ -31,7 +33,8 @@ export default async function login(req, res){
                 const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_KEY, {
                     expiresIn: "7d"
                 });
-                res.status(302).json({ accessToken, refreshToken });
+                return res.status(302).json({accessToken: accessToken, refreshToken:refreshToken })
+                // return res.redirect(302, '/mypage');
             }
         }
     }
