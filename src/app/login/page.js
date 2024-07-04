@@ -51,14 +51,14 @@ function Login() {
                                 pw: pw
                             }),
                         }).then((response) => {
-                            console.log(response);
-                            console.log(response.redirected);
+                            // console.log(response);
+                            // console.log(response.redirected);
                             return response.json();
                         }).then((result) => {
-                            // const { accessToken, refreshToken } = result;
-                            // sessionStorage.setItem("accessToken", accessToken);
-                            // sessionStorage.setItem("refreshToken", refreshToken);
-                            // // router.push('/mypage');
+                            const { accessToken, refreshToken } = result;
+                            sessionStorage.setItem("accessToken", accessToken);
+                            sessionStorage.setItem("refreshToken", refreshToken);
+                            router.push('/mypage');
                         })
                     }} className={email.valid && pw !== '' ? 'green-btn w-full' : 'darkgray-btn w-full'} >로그인하기</button>
                 <button className='white-btn w-full mt-[12px]'><Link href="/register" >회원가입하기</Link></button>
